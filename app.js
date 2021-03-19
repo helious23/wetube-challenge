@@ -9,6 +9,7 @@ import routes from "./routes";
 
 const app = express();
 
+app.set("view engine", "pug"); // view engine Pug
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // bodyparser -> express 내장 기능으로 변경 (확인필요)
