@@ -12,7 +12,7 @@ const app = express();
 
 app.use(helmet({ contentSecurityPolicy: false })); // Security
 app.set("view engine", "pug"); // view engine Pug
-app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads")); // upload router 로 접속시, upload 폴더에서 file 을 찾을 수 있게 함
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // bodyparser -> express 내장 기능으로 변경
