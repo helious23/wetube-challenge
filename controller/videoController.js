@@ -1,9 +1,10 @@
 import routes from "../routes";
 import Video from "../models/Video";
+import fs from "fs";
 
 export const home = async (req, res) => {
   try {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ _id: -1 });
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
@@ -81,7 +82,16 @@ export const deleteVideo = async (req, res) => {
     params: { id },
   } = req;
   try {
-    await Video.findOneAndRemove({ _id: id });
+    const { fileUrl } = await Video.findOneAndDelete({ _id: id });
+    console.log(fileUrl);
+    (() => {
+      try {
+        fs.unlinkSync(fileUrl);
+        console.log("File is deleted");
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   } catch (error) {}
   res.redirect(routes.home);
 };
