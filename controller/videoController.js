@@ -87,7 +87,7 @@ export const deleteVideo = async (req, res) => {
     (() => {
       try {
         fs.unlinkSync(fileUrl);
-        console.log("File is deleted");
+        console.log("File is deleted!!");
       } catch (error) {
         console.log(error);
       }
