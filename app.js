@@ -3,7 +3,9 @@ import morgan from "morgan";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import mongoose from "mongoose";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
 import routes from "./routes";
 import globalRouter from "./routers/globalRouter";
@@ -13,6 +15,8 @@ import videoRouter from "./routers/videoRouter";
 import "./passport";
 
 const app = express();
+
+const CokieStore = MongoStore(session);
 
 app.use(helmet({ contentSecurityPolicy: false })); // Security
 app.set("view engine", "pug"); // view engine Pug
@@ -27,6 +31,7 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: false,
+    store: new CokieStore({ mongooseConnection: mongoose.connection }),
   })
 );
 app.use(passport.initialize()); // passport initialize -> find the cookies

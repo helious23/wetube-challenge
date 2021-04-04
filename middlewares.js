@@ -10,4 +10,20 @@ export const localsMiddleware = (req, res, next) => {
   next();
 };
 
+export const onlyPublic = (req, res, next) => {
+  if (req.user) {
+    res.redirect(routes.home);
+  } else {
+    next();
+  }
+};
+
+export const onlyPrivate = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect(routes.home);
+  }
+};
+
 export const uploadVideo = multerVideo.single("videoFile"); // HTML(upload.pug) 에서 input 으로 받는 file 항목의 name
