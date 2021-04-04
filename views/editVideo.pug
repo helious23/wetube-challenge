@@ -1,9 +1,9 @@
-extends ./layouts/main 
-
+extends layouts/main
 block content
-    .form-container 
+    .form-container
         form(action=routes.editVideo(video.id), method="post")
             input(type="text", placeholder="Title", name="title", value=video.title)
-            textarea(placeholder="Description", name="description")=video.description
-            input(type="submit", value="Edit Video")
-        a.form-cintgaibner__link.form-container__link--delete(href=routes.deleteVideo(video.id)) Delete Video
+            textarea(name="description", placeholder="Description")=video.description
+            input(type="submit", value="Update Video")
+        a.form-container__link(href=routes.deleteVideo(video.id))
+            button.delete Delete Video

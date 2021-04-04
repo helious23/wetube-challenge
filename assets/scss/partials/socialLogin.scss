@@ -1,0 +1,29 @@
+.social-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  button {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    &:not(:last-child) {
+      margin-bottom: 0.8rem;
+    }
+    span {
+      margin-right: 0.6rem;
+      font-size: 1.2rem;
+    }
+  }
+  .social-login--github {
+    background-color: $black;
+    color: white;
+  }
+  .social-login--facebook {
+    background-color: #4267b2;
+    color: white;
+  }
+}
