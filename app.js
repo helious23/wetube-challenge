@@ -31,11 +31,11 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: false,
-    store: new CokieStore({ mongooseConnection: mongoose.connection }),
+    store: new CokieStore({ mongooseConnection: mongoose.connection }), // session 정보를 mongodb에 저장
   })
 );
-app.use(passport.initialize()); // passport initialize -> find the cookies
-app.use(passport.session()); //
+app.use(passport.initialize()); // passport initialize -> find the user by cookies
+app.use(passport.session()); // save cookies to session
 
 app.use(localsMiddleware); // 변수를 local 에 저장하여 global 하게 사용할 수 있게 함
 

@@ -13,7 +13,7 @@ import routes from "../routes";
 const globalRouter = express.Router();
 
 globalRouter.get(routes.join, onlyPublic, getJoin);
-globalRouter.post(routes.join, onlyPublic, postJoin, postLogin); // postJoin 의 data를 postLogin 으로 넘겨줌
+globalRouter.post(routes.join, onlyPublic, postJoin, postLogin); // postJoin 의 data를 postLogin 으로 넘겨줌 (email & password)
 
 globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);
