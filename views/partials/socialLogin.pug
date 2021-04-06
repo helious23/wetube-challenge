@@ -5,7 +5,13 @@
                 i.fab.fa-github
             |  Continue with Github
     button.social-login--facebook 
-        span
-            i.fab.fa-facebook-square
-        |  Continue with Facebook
-    
+        a(href=routes.facebook)
+            span
+                i.fab.fa-facebook-square
+            |  Continue with Facebook
+    button.social-login--kakao
+        a.social-login--kakao(href=routes.kakao)
+            span 
+                i.fas.fa-comment
+            |   Continue with Kakao
+            
