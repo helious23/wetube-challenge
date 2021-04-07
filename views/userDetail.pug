@@ -1,13 +1,18 @@
 extends ./layouts/main
 
 block content
-    .user-profile
+    .user-profile 
         .user-profile__header
-            img.u-avatar(src=user.avatarUrl)
+            if typeof user.avatarUrl !== "undefined"
+                if user.avatarUrl.substring(0,4) === "http"
+                    img.u-avatar(src=user.avatarUrl)
+                else
+                    img.u-avatar(src=`/${user.avatarUrl}`)
             h4.profile__username=user.name
-        if user.id === loggedUser.id 
-            .user-profile__btns 
-                a(href=`/users${routes.editProfile}`)
-                    button ✏️ Edit Profile
-                a(href=`/users${routes.changePassword}`)
-                    button 🔐 Change Passwrod
+        if loggedUser
+            if user.id === loggedUser.id 
+                .user-profile__btns
+                    a(href=`/users${routes.editProfile}`)
+                        button ✏️ Edit Profile
+                    a(href=`/users${routes.changePassword}`)
+                        button 🔒 Change Password
