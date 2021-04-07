@@ -59,7 +59,11 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    if (video.creator.toString() !== req.user.id) {
+      throw Error();
+    } else {
+      res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    }
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
@@ -85,16 +89,23 @@ export const deleteVideo = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const { fileUrl } = await Video.findOneAndDelete({ _id: id });
-    console.log(fileUrl);
-    (() => {
-      try {
-        fs.unlinkSync(fileUrl);
-        console.log("File is deleted!!");
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  } catch (error) {}
+    const video = await Video.findById(id);
+    if (video.creator.toString() !== req.user.id) {
+      throw Error();
+    } else {
+      const { fileUrl } = await Video.findOneAndDelete({ _id: id });
+      console.log(fileUrl);
+      (() => {
+        try {
+          fs.unlinkSync(fileUrl);
+          console.log("File is deleted!!");
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  } catch (error) {
+    console.log(error);
+  }
   res.redirect(routes.home);
 };

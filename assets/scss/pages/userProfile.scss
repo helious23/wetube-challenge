@@ -8,6 +8,7 @@
     flex-direction: column;
     align-items: center;
     margin-bottom: 1.2rem;
+    margin-bottom: 3rem;
     .profile__username {
       font-size: 1rem;
       margin-top: 1rem;
@@ -19,5 +20,8 @@
     a:not(:last-child) {
       margin-bottom: 1.3rem;
     }
+  }
+  .uploaded-videos {
+    margin-top: 50px;
   }
 }
