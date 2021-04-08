@@ -128,7 +128,7 @@ export const postRegisterView = async (req, res) => {
     const video = await Video.findById(id);
     video.views += 1;
     video.save();
-    res.status(200);
+    res.status(200); // rendering 없이 database 접근 후 status code 만 전송
   } catch (error) {
     res.status(400);
   } finally {

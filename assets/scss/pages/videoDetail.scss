@@ -19,23 +19,31 @@
     .video__views,
     .video__description {
       display: block;
-      margin-bottom: 15px;
+      margin-bottom: 1rem;
     }
     .video__title {
-      font-size: 22px;
+      font-size: 1.2rem;
       font-weight: 300;
     }
     .video__views {
-      font-size: 14px;
+      font-size: 0.8rem;
     }
     .video__description {
-      font-size: 16px;
+      font-size: 1rem;
     }
   }
   .video__comments {
-    margin-top: 25px;
+    margin-top: 1.5rem;
+    text-align: center;
     .video__comment-number {
-      font-size: 18px;
+      font-size: 1.2rem;
+    }
+    .add__comment {
+      margin-top: 2rem;
+      width: 100%;
+      input {
+        width: 100%;
+      }
     }
   }
 }

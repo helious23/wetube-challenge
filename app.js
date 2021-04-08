@@ -43,6 +43,6 @@ app.use(localsMiddleware); // 변수를 local 에 저장하여 global 하게 사
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
 app.use(routes.videos, videoRouter);
-app.use(routes.api, apiRouter);
+app.use(routes.api, apiRouter); // API router
 
 export default app;
