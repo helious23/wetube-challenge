@@ -1,6 +1,7 @@
 import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   try {
@@ -52,7 +53,9 @@ export const videoDetail = async (req, res) => {
     params: { id },
   } = req;
   try {
-    const video = await Video.findById(id).populate("creator");
+    const video = await Video.findById(id)
+      .populate("creator")
+      .populate("comments"); // mongoose schema 에서 다른 model 을 참조하는 항목은 populate를 해야 id 값이 아닌 data 자체가 넘어감
     // console.log(video);
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
@@ -119,6 +122,7 @@ export const deleteVideo = async (req, res) => {
 };
 
 // ------------------------------------- API -----------------------------------------//
+
 // Register Video View
 export const postRegisterView = async (req, res) => {
   const {
@@ -129,6 +133,29 @@ export const postRegisterView = async (req, res) => {
     video.views += 1;
     video.save();
     res.status(200); // rendering 없이 database 접근 후 status code 만 전송
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+// Add Comment
+
+export const postAddComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { comment },
+    user,
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    const newComment = await Comment.create({
+      text: comment,
+      creator: user.id,
+    });
+    video.comments.push(newComment.id);
+    video.save();
   } catch (error) {
     res.status(400);
   } finally {
