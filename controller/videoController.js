@@ -51,13 +51,32 @@ export const postUpload = async (req, res) => {
 export const videoDetail = async (req, res) => {
   const {
     params: { id },
+    user,
   } = req;
   try {
     const video = await Video.findById(id)
       .populate("creator")
       .populate("comments"); // mongoose schema 에서 다른 model 을 참조하는 항목은 populate를 해야 id 값이 아닌 data 자체가 넘어감
     // console.log(video);
-    res.render("videoDetail", { pageTitle: video.title, video });
+    if (user) {
+      console.log(user.id);
+      const commentUsers = await Comment.find({ creator: user.id }).populate(
+        "creator"
+      );
+      console.log(commentUsers);
+      // for (let i = 0; i < commentUser.comments.length; i++) {
+      //   const comment = commentUser.comments[i];
+      //   console.log(typeof comment.creator);
+      //   console.log(typeof user.id);
+      // }
+      res.render("videoDetail", {
+        pageTitle: video.title,
+        video,
+        commentUsers,
+      });
+    } else {
+      res.render("videoDetail", { pageTitle: video.title, video });
+    }
   } catch (error) {
     console.log(error);
     res.redirect(routes.home);
@@ -150,12 +169,30 @@ export const postAddComment = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
+    // const commentUser = await User.findById(user.id);
+    // console.log(commentUser);
     const newComment = await Comment.create({
       text: comment,
       creator: user.id,
     });
     video.comments.push(newComment.id);
     video.save();
+    // commentUser.comments.push(newComment.id);
+    // commentUser.save();
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.end();
+  }
+};
+
+// Delete Comment
+export const postDeletePost = async (req, res) => {
+  const {
+    body: { comment },
+  } = req;
+  try {
+    await Comment.findOneAndRemove({ text: comment });
   } catch (error) {
     res.status(400);
   } finally {

@@ -56,6 +56,14 @@
         &:not(:last-child) {
           margin-bottom: 1rem;
         }
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        span {
+          grid-column: 1/5;
+        }
+        i {
+          grid-column: 5/6;
+        }
       }
     }
   }

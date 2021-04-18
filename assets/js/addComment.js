@@ -19,8 +19,11 @@ const increaseNumber = () => {
 const addComment = (comment) => {
   const li = document.createElement("li");
   const span = document.createElement("span");
-  span.innerHTML = comment;
+  const i = document.createElement("i");
+  span.innerHTML = comment; // user 확인 후 comment user 인 경우만 deleteIcon 추가
+  i.className = "far fa-times-circle";
   li.appendChild(span);
+  li.appendChild(i);
   commentList.prepend(li);
   increaseNumber();
 };
