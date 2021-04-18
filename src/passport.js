@@ -49,6 +49,7 @@ passport.use(
       callbackURL: process.env.PRODUCTION
         ? `https://warm-fjord-54503.herokuapp.com${routes.kakaoCallback}`
         : `http://localhost:4000${routes.kakaoCallback}`,
+      // https://developers.kakao.com/console/app/565327/product/login 에서 callback URL 수정 !!
     },
     kakaoLoginCallback
   )
