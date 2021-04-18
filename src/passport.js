@@ -31,7 +31,7 @@ passport.use(
       clientID: process.env.FB_ID,
       clientSecret: process.env.FB_SECRET,
       callbackURL: process.env.PRODUCTION
-        ? `https://warm-fjord-54503.herokuapp.com${routes.githubCallback}`
+        ? `https://warm-fjord-54503.herokuapp.com${routes.facebookCallback}`
         : `https://84ed071331e4.ngrok.io${routes.facebookCallback}`,
       // domain 변경시 수정해야됨!
       // https://developers.facebook.com/apps/859347751316051/fb-login/settings/ callback URL 및 site URL 도 같이 수정!!
@@ -47,7 +47,7 @@ passport.use(
     {
       clientID: process.env.KAKAO_ID,
       callbackURL: process.env.PRODUCTION
-        ? `https://warm-fjord-54503.herokuapp.com${routes.githubCallback}`
+        ? `https://warm-fjord-54503.herokuapp.com${routes.kakaoCallback}`
         : `http://localhost:4000${routes.kakaoCallback}`,
     },
     kakaoLoginCallback
