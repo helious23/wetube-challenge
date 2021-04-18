@@ -33,7 +33,7 @@ passport.use(
       callbackURL: process.env.PRODUCTION
         ? `https://warm-fjord-54503.herokuapp.com${routes.githubCallback}`
         : `https://84ed071331e4.ngrok.io${routes.facebookCallback}`,
-      // domain 변경시 수정해야됨!!
+      // domain 변경시 수정해야됨!
       // https://developers.facebook.com/apps/859347751316051/fb-login/settings/ callback URL 및 site URL 도 같이 수정!!
       profileFields: ["id", "displayName", "email"],
       scope: ["public_profile", "email"],
