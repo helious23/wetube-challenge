@@ -2,6 +2,7 @@
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
+import { s3 } from "../middlewares";
 
 export const home = async (req, res) => {
   try {
@@ -119,6 +120,24 @@ export const deleteVideo = async (req, res) => {
     params: { id },
   } = req;
   try {
+    const currentPost = await Video.findById(id);
+    // const regex = /(http[s]?:\/\/)?([^\/\s]+\/)(.*)/;
+    const filePath = await currentPost.fileUrl.split("/video/")[1];
+
+    const delFile = {
+      Bucket: "healty-pharm-tube/video",
+      Key: filePath,
+    };
+    await s3
+      .deleteObject(delFile, (error, data) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("The File has been removed", data);
+        }
+      })
+      .promise();
+
     const video = await Video.findById(id);
     if (video.creator.toString() !== req.user.id) {
       throw Error();

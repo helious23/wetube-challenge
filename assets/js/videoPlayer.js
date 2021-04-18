@@ -99,7 +99,7 @@ const getCurrentTime = () => {
 const setTotalTime = async () => {
   // const blob = await fetch(videoPlayer.src).then((response) => response.blob());
   const duration = await getBlobDuration(videoPlayer.src);
-  console.log(duration);
+  // console.log(duration);
   const totalTimeString = formatDate(duration);
   totalTime.innerHTML = totalTimeString;
 };
