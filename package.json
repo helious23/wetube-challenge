@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "fs": "0.0.1-security",
+    "get-blob-duration": "^1.2.0",
     "helmet": "^4.4.1",
     "mini-css-extract-plugin": "^1.4.0",
     "mongoose": "^5.12.2",

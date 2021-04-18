@@ -1,4 +1,4 @@
-import fs from "fs";
+// import fs from "fs";
 import routes from "../routes";
 import Video from "../models/Video";
 import Comment from "../models/Comment";
@@ -125,14 +125,14 @@ export const deleteVideo = async (req, res) => {
     } else {
       const { fileUrl } = await Video.findOneAndDelete({ _id: id });
       console.log(fileUrl);
-      (() => {
-        try {
-          fs.unlinkSync(fileUrl);
-          console.log("File is deleted!!");
-        } catch (error) {
-          console.log(error);
-        }
-      })();
+      // (() => {
+      //   try {
+      //     fs.unlinkSync(fileUrl);
+      //     console.log("File is deleted!!");
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // })();
     }
   } catch (error) {
     console.log(error);
