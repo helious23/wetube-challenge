@@ -6,6 +6,7 @@ import passport from "passport";
 import mongoose from "mongoose";
 import session from "express-session";
 import path from "path";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middlewares";
 import routes from "./routes";
@@ -36,6 +37,7 @@ app.use(
     store: new CokieStore({ mongooseConnection: mongoose.connection }), // session 정보를 mongodb에 저장
   })
 );
+app.use(flash()); // flash message middleware
 app.use(passport.initialize()); // passport initialize -> find the user by cookies
 app.use(passport.session()); // save cookies to session
 
