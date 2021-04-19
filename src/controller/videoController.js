@@ -93,10 +93,12 @@ export const getEditVideo = async (req, res) => {
     if (video.creator.toString() !== req.user.id) {
       throw Error();
     } else {
+      req.flash("success", "Video edited");
       res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
     }
   } catch (error) {
     console.log(error);
+    req.flash("error", "Can't edit video");
     res.redirect(routes.home);
   }
 };
@@ -143,6 +145,7 @@ export const deleteVideo = async (req, res) => {
       throw Error();
     } else {
       const { fileUrl } = await Video.findOneAndDelete({ _id: id });
+      req.flash("success", "Video deleted");
       console.log(fileUrl);
       // (() => {
       //   try {
@@ -154,6 +157,7 @@ export const deleteVideo = async (req, res) => {
       // })();
     }
   } catch (error) {
+    req.flash("error", "Can't delete video");
     console.log(error);
   }
   res.redirect(routes.home);
