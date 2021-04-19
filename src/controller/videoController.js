@@ -93,12 +93,10 @@ export const getEditVideo = async (req, res) => {
     if (video.creator.toString() !== req.user.id) {
       throw Error();
     } else {
-      req.flash("success", "Video edited");
       res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
     }
   } catch (error) {
     console.log(error);
-    req.flash("error", "Can't edit video");
     res.redirect(routes.home);
   }
 };
@@ -110,9 +108,11 @@ export const postEditVideo = async (req, res) => {
   } = req;
   try {
     await Video.findOneAndUpdate({ _id: id }, { title, description }); // findOneAndUpadate(찾을항목, 바꿀항목)
+    req.flash("success", "Video edited");
     res.redirect(routes.videoDetail(id));
   } catch (error) {
     console.log(error);
+    req.flash("error", "Can't edit video");
     res.redirect(routes.home);
   }
 };
