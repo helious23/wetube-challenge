@@ -16,12 +16,47 @@ const increaseNumber = () => {
   }
 };
 
+const decreaseNumber = () => {
+  const realtimeNumber = parseInt(commentNumber.innerHTML, 10);
+  if (realtimeNumber <= 2) {
+    commentNumber.innerHTML = realtimeNumber - 1;
+    commentNumber.appendChild(oneComment);
+  } else {
+    commentNumber.innerHTML = realtimeNumber - 1 + moreComments;
+  }
+};
+
+const removeComment = async (comment) => {
+  const videoId = window.location.href.split("/videos/")[1]; // video id 가져옴
+  const response = await axios({
+    url: `/api/${videoId}/delete-comment`,
+    method: "POST",
+    data: {
+      comment,
+    },
+  });
+  if (response.status === 200) {
+    console.log("deleted");
+  }
+};
+
+const deleteComment = (event) => {
+  const btn = event.target;
+  const li = btn.parentNode;
+  const commentContent = li.firstChild.innerHTML;
+  // console.log(commentContent);
+  removeComment(commentContent);
+  decreaseNumber();
+  commentList.removeChild(li);
+};
+
 const addComment = (comment) => {
   const li = document.createElement("li");
   const span = document.createElement("span");
   const i = document.createElement("i");
   span.innerHTML = comment; // user 확인 후 comment user 인 경우만 deleteIcon 추가
   i.className = "far fa-times-circle";
+  i.addEventListener("click", deleteComment);
   li.appendChild(span);
   li.appendChild(i);
   commentList.prepend(li);

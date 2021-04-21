@@ -7,7 +7,7 @@ const moreComments = '<span id="jsMoreComments">  comments</span>';
 
 const decreaseNumber = () => {
   const realtimeNumber = parseInt(commentNumber.innerHTML, 10);
-  if (realtimeNumber === 1) {
+  if (realtimeNumber <= 2) {
     commentNumber.innerHTML = realtimeNumber - 1;
     commentNumber.appendChild(oneComment);
   } else {
